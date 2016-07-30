@@ -24,3 +24,12 @@ func TestPrimeFactor(t *testing.T) {
 		fmt.Println(v)
 	}
 }
+
+func TestSOAP(t *testing.T) {
+	fmt.Println(SOAP(1, 1, 5))
+}
+
+func TestSOGP(t *testing.T) {
+	fmt.Println(SOGP(2, 1, 5))
+	fmt.Println(SOGP(1, 2, 5))
+}

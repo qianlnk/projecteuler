@@ -1,7 +1,8 @@
 package lnkmath
 
 import (
-//"fmt"
+	//"fmt"
+	"math"
 )
 
 //判断是否为回文数
@@ -52,4 +53,26 @@ func PrimeFactor(num int64) []int64 {
 	}
 
 	return res
+}
+
+//等差数列和
+//return sum of arithmetic progression
+func SOAP(a1, d float64, n int64) float64 {
+	return a1*float64(n) + (float64(n)*(float64(n)-1)/2)*d
+}
+
+//等比数列和
+//return sum of geometric progression
+func SOGP(a1, q float64, n int64) float64 {
+	if q == 1 {
+		return a1 * float64(n)
+	} else {
+		return a1 * ((1 - math.Pow(q, float64(n))) / (1 - q))
+	}
+}
+
+//1的平方加到n的平方
+//The sum of the squares of the natural numbers
+func SOSONN(n int64) int64 { //sum of squares of natural numbers
+	return n * (n + 1) * (2*n + 1) / 6
 }
