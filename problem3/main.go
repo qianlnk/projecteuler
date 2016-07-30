@@ -7,16 +7,11 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/qianlnk/projecteuler/lnkmath"
 )
 
 func main() {
-	var num int64 = 600851475143
-	tmpnum := num
-	var i int64
-	for i = 2; i < num/2; i++ {
-		if tmpnum%i == 0 {
-			tmpnum = tmpnum / i
-			fmt.Println(i)
-		}
-	}
+	res := lnkmath.PrimeFactor(600851475143)
+	fmt.Println(res[len(res)-1])
 }

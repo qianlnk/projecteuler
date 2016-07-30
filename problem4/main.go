@@ -7,6 +7,8 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/qianlnk/projecteuler/lnkmath"
 )
 
 func main() {
@@ -15,7 +17,7 @@ func main() {
 	for left = 999; left > 99; left-- {
 		for right = 999; right > 99; right-- {
 			pal := left * right
-			if isPalindromic(pal) {
+			if lnkmath.IsPalindromic(pal) {
 				fmt.Println(pal, "=", left, "*", right)
 				if largest < pal {
 					largest = pal
@@ -24,16 +26,4 @@ func main() {
 		}
 	}
 	fmt.Println(largest)
-}
-
-func isPalindromic(num int64) bool {
-	tmp := num
-	var n int64
-
-	for tmp != 0 {
-		n = n*10 + tmp%10
-		tmp = tmp / 10
-	}
-
-	return num == n
 }
