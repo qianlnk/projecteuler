@@ -33,3 +33,7 @@ func TestSOGP(t *testing.T) {
 	fmt.Println(SOGP(2, 1, 5))
 	fmt.Println(SOGP(1, 2, 5))
 }
+
+func TestPrimeNumber(t *testing.T) {
+	fmt.Println(FirstNPrimeNumber(10001))
+}

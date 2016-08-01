@@ -1,7 +1,6 @@
 package lnkmath
 
 import (
-	//"fmt"
 	"math"
 )
 
@@ -75,4 +74,129 @@ func SOGP(a1, q float64, n int64) float64 {
 //The sum of the squares of the natural numbers
 func SOSONN(n int64) int64 { //sum of squares of natural numbers
 	return n * (n + 1) * (2*n + 1) / 6
+}
+
+//根據埃拉托斯特尼筛法求前n個質數
+//return first n prime number
+func FirstNPrimeNumber(n int64) []int64 {
+	if n == 1 {
+		return []int64{2}
+	}
+	smallPnLst := []int{2, 3, 5, 7}
+	step := 100
+	nnlst := make([]bool, step)
+	var pnlst []int64
+	for i := 2; i < step; i++ {
+		nnlst[i] = true
+	}
+
+	for _, p := range smallPnLst {
+		for j := 2; j < step; j++ {
+			if p*j < step {
+				nnlst[p*j] = false
+			}
+		}
+	}
+
+	for i, v := range nnlst {
+		if v {
+			pnlst = append(pnlst, int64(i))
+		}
+	}
+
+	fornum := 1
+	for int64(len(pnlst)) < n {
+		for i := fornum * step; i < step*(fornum+1); i++ {
+			nnlst = append(nnlst, true)
+		}
+
+		for _, p := range pnlst {
+			for j := 2; j < step*(fornum+1); j++ {
+				if int(p)*j < step*fornum {
+					continue
+				}
+				if int(p)*j < step*(fornum+1) {
+					nnlst[int(p)*j] = false
+				} else {
+					break
+				}
+			}
+		}
+
+		for i, v := range nnlst[(step * fornum):(step * (fornum + 1))] {
+			if v {
+				pnlst = append(pnlst, int64(i+step*fornum))
+			}
+		}
+
+		fornum++
+	}
+
+	return pnlst[:n]
+}
+
+//根據埃拉托斯特尼筛法求小於n的質數
+func LessNPrimeNumber(n int64) []int64 {
+	if n <= 2 {
+		return nil
+	}
+	smallPnLst := []int{2, 3, 5, 7}
+	step := 100
+	nnlst := make([]bool, step)
+	var pnlst []int64
+	for i := 2; i < step; i++ {
+		nnlst[i] = true
+	}
+
+	for _, p := range smallPnLst {
+		for j := 2; j < step; j++ {
+			if p*j < step {
+				nnlst[p*j] = false
+			}
+		}
+	}
+
+	for i, v := range nnlst {
+		if v && int64(i) < n {
+			pnlst = append(pnlst, int64(i))
+		}
+	}
+
+	fornum := 1
+	for {
+		for i := fornum * step; i < step*(fornum+1); i++ {
+			nnlst = append(nnlst, true)
+		}
+
+		for _, p := range pnlst {
+			for j := 2; j < step*(fornum+1); j++ {
+				if int(p)*j < step*fornum {
+					continue
+				}
+				if int(p)*j < step*(fornum+1) {
+					nnlst[int(p)*j] = false
+				} else {
+					break
+				}
+			}
+		}
+		out := false
+		for i, v := range nnlst[(step * fornum):(step * (fornum + 1))] {
+			if int64(i+step*fornum) >= n {
+				out = true
+				break
+			}
+
+			if v && int64(i+step*fornum) < n {
+				pnlst = append(pnlst, int64(i+step*fornum))
+			}
+		}
+
+		if out {
+			break
+		}
+
+		fornum++
+	}
+	return pnlst
 }
